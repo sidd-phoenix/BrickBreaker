@@ -444,6 +444,11 @@ void displayGameOver() {
         delay(30); // Add a small delay to create animation effect
     }
 
+    char scoreText[20];
+    sprintf(scoreText, "Final Score: %d", score);
+    settextstyle(DEFAULT_FONT, HORIZ_DIR, 2);
+    outtextxy(SCREEN_WIDTH / 2 - textwidth(scoreText) / 2, centerY + textHeight + 20, scoreText);
+
     // int starX=centerX-STAR_SIZE*2;
     // int starY=centerY-STAR_SIZE*2;
     
@@ -472,6 +477,12 @@ void displayVictory() {
         outtextxy(centerX, centerY, (char*)text);
         delay(30); // Add a small delay to create animation effect
     } 
+
+
+    char scoreText[20];
+    sprintf(scoreText, "Final Score: %d", score);
+    settextstyle(DEFAULT_FONT, HORIZ_DIR, 2);
+    outtextxy(SCREEN_WIDTH / 2 - textwidth(scoreText) / 2, centerY + textHeight + 20, scoreText);
     
     // int starX=centerX-STAR_SIZE*2;
     // int starY=centerY-STAR_SIZE*2;
