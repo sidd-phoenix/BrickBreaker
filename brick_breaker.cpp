@@ -27,6 +27,8 @@
 
 // Define colors for each power-up type
 #define BALL_COLOR CYAN
+#define BALL_BORDER_COLOR BALL_COLOR
+#define PADDLE_COLOR CREAM
 #define ENLARGE_BALL_COLOR COLOR(0, 255, 0)      // Green
 #define SHRINK_BALL_COLOR COLOR(255, 0, 0)       // Red
 #define ENLARGE_PADDLE_COLOR COLOR(0, 0, 255)    // Blue
@@ -61,7 +63,6 @@ void movePowerUps();
 void drawPowerUps();
 void drawScore();
 void displayStartScreen();
-void drawShearedTextWithBox(int x, int y, const char* text, int shearFactor);
 void drawShearedRectangle(int x, int y, int width, int height, double shear);
 void displayGameOver();
 void displayVictory();
@@ -208,16 +209,16 @@ void drawPaddle() {
     int x4 = paddleCenterX - (paddleWidth / 2) * cos(angleRad) - (paddleHeight / 2) * sin(angleRad);
     int y4 = paddleCenterY - (paddleWidth / 2) * sin(angleRad) + (paddleHeight / 2) * cos(angleRad);
 
-    setfillstyle(SOLID_FILL, CREAM); // Set paddle color to cream
+    setfillstyle(SOLID_FILL, PADDLE_COLOR);
     fillpoly(4, new int[8]{x1, y1, x2, y2, x3, y3, x4, y4});
 }
 
 void drawBalls() {
     for (auto &ball : balls) {
-        setfillstyle(SOLID_FILL, BALL_COLOR); // Center dark purple
+        setfillstyle(SOLID_FILL, BALL_COLOR);
         fillellipse(ball.x, ball.y, ball.size, ball.size);
 
-        setcolor(VIOLET); // Outer violet ring
+        setcolor(BALL_BORDER_COLOR);
         circle(ball.x, ball.y, ball.size);
     }
 }
@@ -383,28 +384,6 @@ void displayStartScreen() {
     outtextxy(screenCenterX - 200, screenCenterY + 160, (char*)"Orange - Shrink Paddle");
     setcolor(MULTIPLY_BALLS_COLOR);
     outtextxy(screenCenterX - 200, screenCenterY + 180, (char*)"Purple - Double Balls");
-}
-
-void drawShearedTextWithBox(int x, int y, const char* text, int shearFactor) {
-    int textWidth = ::textwidth((char*)text);
-    int textHeight = ::textheight((char*)text);
-
-    int x1 = x - 10, y1 = y - 10;
-    int x2 = x + textWidth + 10, y2 = y + textHeight + 10;
-
-    line(x1, y1, x2 + shearFactor * textHeight, y1);
-    line(x2 + shearFactor * textHeight, y1, x2, y2);
-    line(x2, y2, x1 - shearFactor * textHeight, y2);
-    line(x1 - shearFactor * textHeight, y2, x1, y1);
-
-    // Draw sheared text character by character
-    int currentX = x;
-    for (int i = 0; text[i] != '\0'; i++) {
-        char singleChar[2] = {text[i], '\0'};
-        int xOffset = shearFactor * (i * textHeight) / 10;
-        outtextxy(currentX + xOffset, y, singleChar);
-        currentX += textwidth(singleChar);
-    }
 }
 
 void drawShearedRectangle(int x, int y, int width, int height, double shear) {
