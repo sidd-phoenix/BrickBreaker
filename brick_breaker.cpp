@@ -229,8 +229,10 @@ void moveBalls() {
         ball.x += ballSpeedX * ball.dirX;
         ball.y += ballSpeedY * ball.dirY;
 
-        if (ball.x <= ball.size || ball.x >= SCREEN_WIDTH - ball.size) ball.dirX = -ball.dirX;
-        if (ball.y <= ball.size) ball.dirY = -ball.dirY;
+        if (ball.x <= ball.size || ball.x >= SCREEN_WIDTH - ball.size) 
+            ball.dirX = -ball.dirX;
+        if (ball.y <= ball.size) 
+            ball.dirY = -ball.dirY;
 
         int relativeHitX = ball.x - paddleX;
         if (ball.y >= paddleY - ball.size && relativeHitX >= 0 && relativeHitX <= paddleWidth) {
