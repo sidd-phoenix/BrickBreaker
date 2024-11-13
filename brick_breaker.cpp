@@ -13,7 +13,6 @@
 #define BRICK_HEIGHT 20
 #define NUM_BRICKS_ROW 16
 #define NUM_BRICKS_COL 6
-#define STAR_SIZE 20
 
 #define MIN_PADDLE_WIDTH 50
 #define MAX_PADDLE_WIDTH 150
@@ -68,7 +67,6 @@ void displayGameOver();
 void displayVictory();
 bool checkVictory();
 void initGame();
-void drawStar(int centerX, int centerY, int size, int color);
 int computeOutCode(int x, int y);
 bool cohenSutherlandClip(int& x0, int& y0, int& x1, int& y1);
 
@@ -448,13 +446,6 @@ void displayGameOver() {
     sprintf(scoreText, "Final Score: %d", score);
     settextstyle(DEFAULT_FONT, HORIZ_DIR, 2);
     outtextxy(SCREEN_WIDTH / 2 - textwidth(scoreText) / 2, centerY + textHeight + 20, scoreText);
-
-    // int starX=centerX-STAR_SIZE*2;
-    // int starY=centerY-STAR_SIZE*2;
-    
-    // drawStar(starX,starY,STAR_SIZE,WHITE);
-    // drawStar(starX+centerX,starY,STAR_SIZE,WHITE);
-
 }
 
 void displayVictory() {
@@ -483,12 +474,6 @@ void displayVictory() {
     sprintf(scoreText, "Final Score: %d", score);
     settextstyle(DEFAULT_FONT, HORIZ_DIR, 2);
     outtextxy(SCREEN_WIDTH / 2 - textwidth(scoreText) / 2, centerY + textHeight + 20, scoreText);
-    
-    // int starX=centerX-STAR_SIZE*2;
-    // int starY=centerY-STAR_SIZE*2;
-
-    // drawStar(starX,starY,STAR_SIZE,WHITE);
-    // drawStar(starX+centerX,starY,STAR_SIZE,WHITE);
 }
 
 bool checkVictory() {
@@ -515,20 +500,6 @@ void initGame() {
             bricks[i][j] = 1;
         }
     }
-}
-
-void drawStar(int centerX, int centerY, int size, int color) {
-    double angle = 72 * M_PI / 180; // 72 degrees in radians
-    int points[10];
-
-    for (int i = 0; i < 5; i++) {
-        points[i * 2] = centerX + size * cos(i * 2 * angle);
-        points[i * 2 + 1] = centerY - size * sin(i * 2 * angle);
-    }
-
-    setcolor(color);
-    setfillstyle(SOLID_FILL, color);
-    fillpoly(5, points); // Draw star
 }
 
 int computeOutCode(int x, int y) {
